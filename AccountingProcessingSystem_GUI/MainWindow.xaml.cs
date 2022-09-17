@@ -99,6 +99,10 @@ namespace AccountingProcessingSystem_GUI
             return true;
         }
 
+        /// <summary>
+        /// 会計一覧をListViewに表示します。
+        /// </summary>
+        /// <param name="datas"></param>
         public void ShowDatas(ref List<ACCOUNTDATA> datas)
         {
             var list = new ObservableCollection<ACCOUNTDATASHOWS>();
@@ -109,10 +113,39 @@ namespace AccountingProcessingSystem_GUI
             LV_Datas.ItemsSource = list;
         }
 
+        public void LoadData(ref ACCOUNTDATA data)
+        {
+        }
+
         private void Add_Clicked(object sender, RoutedEventArgs e)
         {
             AddNewAccount(ref this.accounts);
             ShowDatas(ref this.accounts);
+        }
+
+        private void Edit_clicked(object sender, RoutedEventArgs e)
+        {
+            if (this.LV_Datas.SelectedItem == null) return;
+            var target = (this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS).Owner;
+            if (target == null) return;
+            target.Date = this.DP_date.SelectedDate;
+            target.Group = this.CB_Group.SelectedItem.ToString();
+            target.Title = this.TB_Title.Text;
+            target.Paid = int.Parse(this.TB_Paid.Text);
+            target.Income = int.Parse(this.TB_Income.Text);
+        }
+
+        private void EditElementSelected(object sender, MouseButtonEventArgs e)
+        {
+            if (this.LV_Datas.SelectedItem == null) return;
+            var target = (this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS).Owner;
+            this.DP_date.SelectedDate = target.Date;
+            //this.
+        }
+
+        private void GroupManager_Clicked(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

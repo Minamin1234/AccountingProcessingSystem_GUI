@@ -1,0 +1,31 @@
+﻿<Window x:Class="AccountingProcessingSystem_GUI.GroupManager"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AccountingProcessingSystem_GUI"
+        mc:Ignorable="d"
+        Title="GroupManager" Height="301" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="44*"/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBox x:Name="TB_Name" Text="name" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="100"/>
+                <Button x:Name="B_Add" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50"/>
+                <Button x:Name="B_Edit" Content="Edit" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50"/>
+                <Button x:Name="B_Del" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50"/>
+            </StackPanel>
+        </StackPanel>
+        <ListView Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+    </Grid>
+</Window>
