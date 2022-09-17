@@ -19,10 +19,15 @@
             <TextBox x:Name="TB_Income" Text="0" VerticalAlignment="Center" Width="50" Margin="5,0,5,0" Background="White" />
             <Button x:Name="B_Add" Content="Add" VerticalAlignment="Center" Width="50" Margin="5,0,5,0" Background="White" Click="Add_Clicked"/>
         </StackPanel>
-        <ListView Grid.Row="1">
+        <ListView x:Name="LV_Datas" Grid.Row="1">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn/>
+                    <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding ID}"/>
+                    <GridViewColumn Width="100" Header="Date" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Width="50" Header="Group" DisplayMemberBinding="{Binding Group}"/>
+                    <GridViewColumn Width="50" Header="Title" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Width="50" Header="Paid" DisplayMemberBinding="{Binding Paid}"/>
+                    <GridViewColumn Width="50" Header="Income" DisplayMemberBinding="{Binding Income}"/>
                 </GridView>
             </ListView.View>
         </ListView>

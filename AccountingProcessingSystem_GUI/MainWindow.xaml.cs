@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+using System.Collections.ObjectModel;
+
 namespace AccountingProcessingSystem_GUI
 {
     /// <summary>
@@ -20,6 +22,7 @@ namespace AccountingProcessingSystem_GUI
     /// </summary>
     public partial class ACCOUNTDATA
     {
+        public int Id = 0;
         public DateTime? Date = null;
         public string Group = string.Empty;
         public string Title = string.Empty;
@@ -29,6 +32,7 @@ namespace AccountingProcessingSystem_GUI
         public override string ToString()
         {
             string res = "";
+            res += "Id:     " + this.Id.ToString() + Environment.NewLine;
             res += "Date:   " + this.Date.ToString() + Environment.NewLine;
             res += "Group:  " + this.Group + Environment.NewLine;
             res += "Title:  " + this.Title + Environment.NewLine;
@@ -38,6 +42,30 @@ namespace AccountingProcessingSystem_GUI
             return res;
         }
     }
+
+    /// <summary>
+    /// ListViewで表示する内容を定義したクラス
+    /// </summary>
+    public partial class ACCOUNTDATASHOWS
+    {
+        public int ID { get; set; }
+        public DateTime? Date { get; set; }
+        public string Group { get; set; }
+        public string Title { get; set; }
+        public int Paid { get; set; }
+        public int Income { get; set; }
+
+        public ACCOUNTDATASHOWS(ACCOUNTDATA data)
+        {
+            this.ID = data.Id;
+            this.Date = data.Date;
+            this.Group = data.Group;
+            this.Title = data.Title;
+            this.Paid = data.Paid;
+            this.Income = data.Income;
+        }
+    }
+
     /// <summary>
     /// MainWindow.xaml の相互作用ロジック
     /// </summary>
@@ -57,6 +85,7 @@ namespace AccountingProcessingSystem_GUI
         {
             if(DP_date.SelectedDate == null) return false;
             var current = new ACCOUNTDATA();
+            current.Id = datas.Count;
             current.Date = DP_date.SelectedDate;
             if(CB_Group.SelectedItem == null) current.Group = String.Empty;
             else current.Group = CB_Group.SelectedItem.ToString();
@@ -68,9 +97,20 @@ namespace AccountingProcessingSystem_GUI
             return true;
         }
 
+        public void ShowDatas(ref List<ACCOUNTDATA> datas)
+        {
+            var list = new ObservableCollection<ACCOUNTDATASHOWS>();
+            foreach(var data in datas)
+            {
+                list.Add(new ACCOUNTDATASHOWS(data));
+            }
+            LV_Datas.ItemsSource = list;
+        }
+
         private void Add_Clicked(object sender, RoutedEventArgs e)
         {
             AddNewAccount(ref this.accounts);
+            ShowDatas(ref this.accounts);
         }
     }
 }
