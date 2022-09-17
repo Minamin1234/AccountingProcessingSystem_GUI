@@ -44,6 +44,23 @@ namespace AccountingProcessingSystem_GUI
     }
 
     /// <summary>
+    /// 品目のグループ
+    /// </summary>
+    public partial class GROUP
+    {
+        public string Name = string.Empty;
+        public override string ToString()
+        {
+            return this.Name;
+        }
+
+        public GROUP(string name)
+        {
+            this.Name = name;
+        }
+    }
+
+    /// <summary>
     /// ListViewで表示する内容を定義したクラス
     /// </summary>
     public partial class ACCOUNTDATASHOWS
@@ -74,6 +91,7 @@ namespace AccountingProcessingSystem_GUI
     public partial class MainWindow : Window
     {
         public List<ACCOUNTDATA> accounts = new List<ACCOUNTDATA>();
+        public List<GROUP> groups = new List<GROUP>();
         public MainWindow()
         {
             InitializeComponent();
@@ -111,6 +129,30 @@ namespace AccountingProcessingSystem_GUI
                 list.Add(new ACCOUNTDATASHOWS(data));
             }
             LV_Datas.ItemsSource = list;
+        }
+
+        /// <summary>
+        /// グループをConboBoxに表示します。[未検]
+        /// </summary>
+        /// <param name="groups"></param>
+        public void ShowGroups(ref List<GROUP> groups)
+        {
+            var list = new ObservableCollection<GROUP>();
+            foreach(var i in groups)
+            {
+                list.Add(i);
+            }
+            CB_Group.ItemsSource = list;
+        }
+
+        /// <summary>
+        /// グループの管理ウィンドウを開きます。
+        /// </summary>
+        /// <param name="groups"></param>
+        public void OpenGroupManager(ref List<GROUP> groups)
+        {
+            var window = new GroupManager(ref groups);
+            window.Show();
         }
 
         public void LoadData(ref ACCOUNTDATA data)

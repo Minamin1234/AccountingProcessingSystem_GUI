@@ -15,19 +15,19 @@
         <StackPanel VerticalAlignment="Center" Height="29">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBox x:Name="TB_Name" Text="name" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="100"/>
-                <Button x:Name="B_Add" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50"/>
-                <Button x:Name="B_Edit" Content="Edit" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50"/>
-                <Button x:Name="B_Del" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50"/>
+                <Button x:Name="B_Add" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Add_Clicked"/>
+                <Button x:Name="B_Edit" Content="Edit" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Edit_Clicked"/>
+                <Button x:Name="B_Del" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Del_Clicked"/>
             </StackPanel>
         </StackPanel>
-        <ListView d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,65,0,0" Grid.RowSpan="2">
+        <ListView x:Name="LV_Groups" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,65,0,0" Grid.RowSpan="2" MouseDoubleClick="EditElementSelected">
             <ListView.View>
                 <GridView>
                     <GridViewColumn/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button x:Name="B_Close" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Width="300"/>
+        <Button x:Name="B_Close" Content="Close" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="2" Width="300" Click="Close_Clicked"/>
 
     </Grid>
 </Window>
