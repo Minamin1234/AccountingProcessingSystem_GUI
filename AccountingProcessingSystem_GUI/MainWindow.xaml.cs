@@ -54,6 +54,7 @@ namespace AccountingProcessingSystem_GUI
         public string Title { get; set; }
         public int Paid { get; set; }
         public int Income { get; set; }
+        public ACCOUNTDATA Owner = null;
 
         public ACCOUNTDATASHOWS(ACCOUNTDATA data)
         {
@@ -63,6 +64,7 @@ namespace AccountingProcessingSystem_GUI
             this.Title = data.Title;
             this.Paid = data.Paid;
             this.Income = data.Income;
+            this.Owner = data;
         }
     }
 
