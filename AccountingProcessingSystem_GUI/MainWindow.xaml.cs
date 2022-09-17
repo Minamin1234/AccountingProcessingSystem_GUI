@@ -145,7 +145,8 @@ namespace AccountingProcessingSystem_GUI
 
         private void GroupManager_Clicked(object sender, RoutedEventArgs e)
         {
-
+            var current = new GroupManager();
+            current.Show();
         }
     }
 }
