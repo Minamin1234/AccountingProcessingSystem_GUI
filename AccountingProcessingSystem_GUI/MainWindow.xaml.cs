@@ -177,17 +177,30 @@ namespace AccountingProcessingSystem_GUI
         {
         }
 
+        /// <summary>
+        /// 開いていたグループマネージャーが閉じられた際に呼ばれます。
+        /// </summary>
         public void On_ClosedGroupManager()
         {
             this.ShowGroups(ref this.groups);
         }
 
+        /// <summary>
+        /// 追加ボタンをクリックした際に呼ばれます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Add_Clicked(object sender, RoutedEventArgs e)
         {
             AddNewAccount(ref this.accounts);
             ShowDatas(ref this.accounts);
         }
 
+        /// <summary>
+        /// 編集ボタンがクリックされた際に呼ばれます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Edit_clicked(object sender, RoutedEventArgs e)
         {
             if (this.LV_Datas.SelectedItem == null) return;
@@ -202,11 +215,21 @@ namespace AccountingProcessingSystem_GUI
             this.B_Edit.IsEnabled = this.IsSelected;
         }
 
+        /// <summary>
+        /// グループマネージャーのボタンがクリックされた際に呼ばれます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GroupManager_Clicked(object sender, RoutedEventArgs e)
         {
             this.OpenGroupManager(ref this.groups);
         }
 
+        /// <summary>
+        /// 削除ボタンがクリックされた際に呼ばれます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Del_Clicked(object sender, RoutedEventArgs e)
         {
             if (this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS == null) return;
@@ -215,6 +238,11 @@ namespace AccountingProcessingSystem_GUI
             this.B_Del.IsEnabled = this.IsSelected;
         }
 
+        /// <summary>
+        /// データが選択された際に呼ばれます。
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ElementSelected(object sender, SelectionChangedEventArgs e)
         {
             if (this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS == null) return;
