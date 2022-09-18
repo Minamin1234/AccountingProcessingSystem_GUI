@@ -11,7 +11,14 @@
             <RowDefinition Height="145*"/>
             <RowDefinition Height="289*"/>
         </Grid.RowDefinitions>
-        
+        <DockPanel VerticalAlignment="Top">
+            <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20" DockPanel.Dock="Top">
+                <MenuItem Header="Data">
+                    <MenuItem Header="Save Data.."/>
+                    <MenuItem Header="Export CSV"/>
+                </MenuItem>
+            </Menu>
+        </DockPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <DatePicker Name="DP_date" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" />
@@ -23,7 +30,7 @@
                 <Button x:Name="B_Edit" Content="Edit" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Edit_clicked"/>
                 <Button x:Name="B_Del" Content="Delete" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Del_Clicked"/>
             </StackPanel>
-            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
                 <Button x:Name="B_GroupManager" Content="GroupManager.." VerticalAlignment="Center" Margin="5,5,5,5" Background="White" HorizontalAlignment="Center" Width="150" Click="GroupManager_Clicked"/>
             </StackPanel>
         </StackPanel>
