@@ -28,6 +28,11 @@ namespace AccountingProcessingSystem_GUI
             InitializeComponent();
         }
 
+        /// <summary>
+        /// グループマネージャー
+        /// </summary>
+        /// <param name="owner">所有するウィンドウ</param>
+        /// <param name="groups">グループリスト</param>
         public GroupManager(MainWindow owner,ref List<GROUP> groups)
         {
             InitializeComponent();
@@ -36,6 +41,9 @@ namespace AccountingProcessingSystem_GUI
             this.ShowGroups(ref this.groups);
         }
 
+        /// <summary>
+        /// グループリストに新しいグループを追加します。
+        /// </summary>
         public void AddNewGroup()
         {
             var current = new GROUP(this.TB_Name.Text);
@@ -43,6 +51,10 @@ namespace AccountingProcessingSystem_GUI
             this.groups.Add(current);
         }
 
+        /// <summary>
+        /// ListViewで選択されているグループを返します。
+        /// </summary>
+        /// <returns>選択されているグループオブジェクト</returns>
         public GROUP GetSelectedGroup()
         {
             if(this.LV_Groups.SelectedItem == null) return null;
@@ -51,6 +63,9 @@ namespace AccountingProcessingSystem_GUI
             return target;
         }
 
+        /// <summary>
+        /// ListViewで選択されているグループを入力に反映させます。
+        /// </summary>
         public void LoadGroup()
         {
             var target = this.GetSelectedGroup();
@@ -58,6 +73,10 @@ namespace AccountingProcessingSystem_GUI
             this.TB_Name.Text = target.Name;
         }
 
+        /// <summary>
+        /// ListViewにグループ一覧を表示させます。
+        /// </summary>
+        /// <param name="groups"></param>
         public void ShowGroups(ref List<GROUP> groups)
         {
             var list = new ObservableCollection<GROUP>();
