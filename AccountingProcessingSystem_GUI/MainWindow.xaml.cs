@@ -27,6 +27,7 @@ namespace AccountingProcessingSystem_GUI
     {
         public int Id = 0;
         public DateTime? Date = null;
+        public List<GROUP> Groups = null;
         public GROUP Group = null;
         public string Title = string.Empty;
         public int Paid = 0;
