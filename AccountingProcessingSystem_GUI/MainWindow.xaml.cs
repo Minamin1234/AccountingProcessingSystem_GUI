@@ -14,6 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 using System.Collections.ObjectModel;
+using System.Xml.Serialization;
+using System.IO;
+using Microsoft.Win32;
 
 namespace AccountingProcessingSystem_GUI
 {
@@ -66,6 +69,11 @@ namespace AccountingProcessingSystem_GUI
             return this.Name == other.Name;
         }
 
+        public GROUP()
+        {
+
+        }
+
         public GROUP(string name)
         {
             this.Name = name;
@@ -102,6 +110,8 @@ namespace AccountingProcessingSystem_GUI
     /// </summary>
     public partial class MainWindow : Window
     {
+        public const string DATAFILTER = "data files (*.mdata)|*.mdata";
+        public const string DATAEXT = ".mdata";
         public List<ACCOUNTDATA> accounts = new List<ACCOUNTDATA>();
         public List<GROUP> groups = new List<GROUP>();
         public bool IsSelected
@@ -173,8 +183,42 @@ namespace AccountingProcessingSystem_GUI
             window.Show();
         }
 
-        public void LoadData(ref ACCOUNTDATA data)
+        public void SaveData(ref List<ACCOUNTDATA> datas)
         {
+            var sd = new SaveFileDialog();
+            sd.InitialDirectory = System.IO.Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            sd.DefaultExt = DATAEXT;
+            sd.Filter = DATAFILTER;
+            if((bool)sd.ShowDialog())
+            {
+                var se = new XmlSerializer(typeof(List<ACCOUNTDATA>));
+                using (var fs = new FileStream(sd.FileName, FileMode.Create))
+                {
+                    se.Serialize(fs, datas);
+                }
+                Console.WriteLine("Saved");
+            }
+        }
+
+        public void LoadData(ref List<ACCOUNTDATA> datas)
+        {
+            var fd = new OpenFileDialog();
+            fd.InitialDirectory = System.IO.Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            fd.DefaultExt = DATAEXT;
+            fd.Filter = DATAFILTER;
+            if((bool)fd.ShowDialog())
+            {
+                var se = new XmlSerializer(typeof(List<ACCOUNTDATA>));
+                using (var fs = new FileStream(fd.FileName, FileMode.Open))
+                {
+                    datas = (List<ACCOUNTDATA>)se.Deserialize(fs);
+                }
+
+                foreach(var d in datas)
+                {
+                    Console.WriteLine(d);
+                }
+            }
         }
 
         /// <summary>
@@ -204,7 +248,7 @@ namespace AccountingProcessingSystem_GUI
         private void Edit_clicked(object sender, RoutedEventArgs e)
         {
             if (this.LV_Datas.SelectedItem == null) return;
-            var target = (this.LV_Datas.SelectedItem as ACCOUNTDATA);
+            var target = (this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS).Owner;
             if (target == null) return;
             target.Date = this.DP_date.SelectedDate;
             target.Group = this.CB_Group.SelectedItem as GROUP;
@@ -254,6 +298,24 @@ namespace AccountingProcessingSystem_GUI
             this.TB_Income.Text = target.Income.ToString();
             this.B_Edit.IsEnabled = this.IsSelected;
             this.B_Del.IsEnabled = this.IsSelected;
+            Console.WriteLine((this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS).Owner.ToString());
+        }
+
+        private void MenuElements_Clicked(object sender, RoutedEventArgs e)
+        {
+            if(sender as MenuItem == MI_LoadData)
+            {
+                this.LoadData(ref this.accounts);
+                this.ShowDatas(ref this.accounts);
+            }
+            else if(sender as MenuItem == MI_SaveData)
+            {
+                this.SaveData(ref this.accounts);
+            }
+            else if(sender as MenuItem == MI_ExportCSV)
+            {
+
+            }
         }
     }
 }
