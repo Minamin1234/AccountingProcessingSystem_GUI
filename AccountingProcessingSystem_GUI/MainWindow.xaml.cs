@@ -167,6 +167,7 @@ namespace AccountingProcessingSystem_GUI
 
         public void On_ClosedGroupManager()
         {
+            this.ShowGroups(ref this.groups);
         }
 
         private void Add_Clicked(object sender, RoutedEventArgs e)
