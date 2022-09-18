@@ -21,16 +21,19 @@ namespace AccountingProcessingSystem_GUI
     /// </summary>
     public partial class GroupManager : Window
     {
+        public MainWindow owner = null;
         public List<GROUP> groups = new List<GROUP>();
         public GroupManager()
         {
             InitializeComponent();
         }
 
-        public GroupManager(ref List<GROUP> groups)
+        public GroupManager(MainWindow owner,ref List<GROUP> groups)
         {
             InitializeComponent();
+            this.owner = owner;
             this.groups = groups;
+            this.ShowGroups(ref this.groups);
         }
 
         public void AddNewGroup()
@@ -89,7 +92,8 @@ namespace AccountingProcessingSystem_GUI
 
         private void Close_Clicked(object sender, RoutedEventArgs e)
         {
-
+            this.owner.On_ClosedGroupManager();
+            this.Close();
         }
 
         private void EditElementSelected(object sender, MouseButtonEventArgs e)

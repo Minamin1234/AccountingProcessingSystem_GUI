@@ -157,11 +157,15 @@ namespace AccountingProcessingSystem_GUI
         /// <param name="groups"></param>
         public void OpenGroupManager(ref List<GROUP> groups)
         {
-            var window = new GroupManager(ref groups);
+            var window = new GroupManager(this,ref groups);
             window.Show();
         }
 
         public void LoadData(ref ACCOUNTDATA data)
+        {
+        }
+
+        public void On_ClosedGroupManager()
         {
         }
 
@@ -193,8 +197,7 @@ namespace AccountingProcessingSystem_GUI
 
         private void GroupManager_Clicked(object sender, RoutedEventArgs e)
         {
-            var current = new GroupManager();
-            current.Show();
+            this.OpenGroupManager(ref this.groups);
         }
     }
 }
