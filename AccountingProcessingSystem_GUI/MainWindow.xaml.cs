@@ -150,7 +150,7 @@ namespace AccountingProcessingSystem_GUI
         }
 
         /// <summary>
-        /// グループをConboBoxに表示します。[未検]
+        /// グループをConboBoxに表示します。
         /// </summary>
         /// <param name="groups"></param>
         public void ShowGroups(ref List<GROUP> groups)
