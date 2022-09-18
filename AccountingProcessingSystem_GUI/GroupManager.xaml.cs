@@ -36,6 +36,7 @@ namespace AccountingProcessingSystem_GUI
         public void AddNewGroup()
         {
             var current = new GROUP(this.TB_Name.Text);
+            if (this.groups.Contains(current)) return;
             this.groups.Add(current);
         }
 
@@ -81,6 +82,9 @@ namespace AccountingProcessingSystem_GUI
 
         private void Del_Clicked(object sender, RoutedEventArgs e)
         {
+            if(this.LV_Groups.SelectedItem as GROUP == null) return;
+            this.groups.Remove(this.LV_Groups.SelectedItem as GROUP);
+            this.ShowGroups(ref this.groups);
         }
 
         private void Close_Clicked(object sender, RoutedEventArgs e)
