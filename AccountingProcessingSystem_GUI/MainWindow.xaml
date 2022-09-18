@@ -21,12 +21,13 @@
                 <TextBox x:Name="TB_Income" Text="0" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" />
                 <Button x:Name="B_Add" Content="Add" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Add_Clicked"/>
                 <Button x:Name="B_Edit" Content="Edit" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Edit_clicked"/>
+                <Button x:Name="B_Del" Content="Delete" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Del_Clicked"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Left">
                 <Button x:Name="B_GroupManager" Content="GroupManager.." VerticalAlignment="Center" Margin="5,5,5,5" Background="White" HorizontalAlignment="Center" Width="150" Click="GroupManager_Clicked"/>
             </StackPanel>
         </StackPanel>
-        <ListView x:Name="LV_Datas" Grid.Row="1" MouseDoubleClick="EditElementSelected">
+        <ListView x:Name="LV_Datas" Grid.Row="1" SelectionChanged="ElementSelected">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding ID}"/>
