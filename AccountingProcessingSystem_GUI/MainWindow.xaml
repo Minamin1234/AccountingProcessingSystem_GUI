@@ -5,17 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AccountingProcessingSystem_GUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800" Background="#FFE4E4E4">
+        Title="MainWindow" Height="450" Width="800" Background="#FFE4E4E4" Closed="On_Close">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="313*"/>
-            <ColumnDefinition Width="487*"/>
-        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="145*"/>
             <RowDefinition Height="289*"/>
         </Grid.RowDefinitions>
-        <DockPanel VerticalAlignment="Top" Grid.ColumnSpan="2">
+        <DockPanel VerticalAlignment="Top" Height="20" Grid.ColumnSpan="2">
             <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20" DockPanel.Dock="Top">
                 <MenuItem Header="Data">
                     <MenuItem Header="Load Data..">
@@ -30,7 +26,7 @@
                 </MenuItem>
             </Menu>
         </DockPanel>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="114,0,0,0">
+        <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="114,0,0,0" Height="63" Width="605" Grid.ColumnSpan="2">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <DatePicker Name="DP_date" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" Width="100" />
                 <ComboBox x:Name="CB_Group" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5,5,5" Background="White" />
@@ -45,7 +41,7 @@
                 <Button x:Name="B_GroupManager" Content="項目リストの編集.." VerticalAlignment="Center" Margin="5,5,5,5" Background="White" HorizontalAlignment="Center" Width="150" Click="GroupManager_Clicked"/>
             </StackPanel>
         </StackPanel>
-        <ListView x:Name="LV_Datas" SelectionChanged="ElementSelected" Grid.ColumnSpan="2" Margin="0,145,0,0" Grid.RowSpan="2">
+        <ListView x:Name="LV_Datas" SelectionChanged="ElementSelected" Margin="0,145,0,0" Grid.RowSpan="2" Grid.ColumnSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding ID}"/>

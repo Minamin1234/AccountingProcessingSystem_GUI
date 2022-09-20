@@ -81,6 +81,14 @@ namespace AccountingProcessingSystem_GUI
         }
     }
 
+    public partial class CACHE
+    {
+        public string DataFilePath = string.Empty;
+        public string GroupsDataFilePath = string.Empty;
+
+        public CACHE() { }
+    }
+
     /// <summary>
     /// ListViewで表示する内容を定義したクラス
     /// </summary>
@@ -118,6 +126,7 @@ namespace AccountingProcessingSystem_GUI
         public const string CSVEXT = ".csv";
         public const string CSVFILTER = "CSV file (*.csv)|*.csv";
         public Encoding CSVENCODE = Encoding.UTF8;
+        public const string CACHEFILENAME = "cache.mcache";
 
         public const string WORD_CSV = ",";
         public const string NAME_ID = "ID";
@@ -129,6 +138,8 @@ namespace AccountingProcessingSystem_GUI
 
         public List<ACCOUNTDATA> accounts = new List<ACCOUNTDATA>();
         public List<GROUP> groups = new List<GROUP>();
+        public CACHE cache = null;
+        public bool IsCacheExsist = false;
         public bool IsSelected
         {
             get { return this.LV_Datas.SelectedItem != null; }
@@ -138,6 +149,25 @@ namespace AccountingProcessingSystem_GUI
             InitializeComponent();
             this.B_Edit.IsEnabled = this.IsSelected;
             this.B_Del.IsEnabled = this.IsSelected;
+            if (this.IsCacheExsist = CheckCache()) LoadCache(ref this.cache);
+            else this.cache = new CACHE();
+        }
+
+        public string GetCachePath()
+        {
+            return System.IO.Path.GetDirectoryName(
+                Environment.GetCommandLineArgs()[0])
+                + System.IO.Path.DirectorySeparatorChar
+                + CACHEFILENAME;
+        }
+
+        public bool CheckCache()
+        {
+            if (System.IO.File.Exists(System.IO.Path.GetDirectoryName(
+                Environment.GetCommandLineArgs()[0])
+                + System.IO.Path.DirectorySeparatorChar
+                + CACHEFILENAME)) return true;
+            return false;
         }
 
         /// <summary>
@@ -216,6 +246,8 @@ namespace AccountingProcessingSystem_GUI
                 {
                     se.Serialize(fs, datas);
                 }
+                this.cache.DataFilePath = sd.FileName;
+                this.Title = System.IO.Path.GetFileNameWithoutExtension(sd.FileName);
                 Console.WriteLine("Saved");
             }
         }
@@ -237,6 +269,7 @@ namespace AccountingProcessingSystem_GUI
                 {
                     se.Serialize(fs, groupslist);
                 }
+                this.cache.GroupsDataFilePath = sd.FileName;
                 Console.WriteLine("Saved");
             }
         }
@@ -271,11 +304,34 @@ namespace AccountingProcessingSystem_GUI
             sd.Filter = CSVFILTER;
             if((bool)sd.ShowDialog())
             {
-                var se = new SaveFileDialog();
                 using (var sw = new StreamWriter(sd.FileName,false,CSVENCODE))
                 {
                     sw.Write(res);
                 }
+            }
+        }
+
+        public void GenerateCache(ref CACHE cache)
+        {
+            var se = new XmlSerializer(typeof(CACHE));
+            using (var fs = new FileStream(this.GetCachePath(),FileMode.Create))
+            {
+                se.Serialize(fs, cache);
+                Console.WriteLine("Saved:" + this.GetCachePath());
+            }
+        }
+
+        public void LoadCache(ref CACHE cache)
+        {
+            var se = new XmlSerializer(typeof(CACHE));
+            using (var fs = new FileStream(this.GetCachePath(),FileMode.Open))
+            {
+                cache = (CACHE)se.Deserialize(fs);
+                if (cache.DataFilePath != String.Empty) this.LoadData(cache.DataFilePath, ref this.accounts);
+                else if (cache.GroupsDataFilePath != String.Empty) this.LoadGroupListData(cache.GroupsDataFilePath, ref this.groups);
+                this.ShowDatas(ref this.accounts);
+                this.ShowGroups(ref this.groups);
+                Console.WriteLine("Loaded");
             }
         }
 
@@ -291,6 +347,9 @@ namespace AccountingProcessingSystem_GUI
             fd.Filter = DATAFILTER;
             if((bool)fd.ShowDialog())
             {
+                this.LoadData(fd.FileName, ref datas);
+                this.cache.DataFilePath = fd.FileName;
+                /*
                 var se = new XmlSerializer(typeof(List<ACCOUNTDATA>));
                 using (var fs = new FileStream(fd.FileName, FileMode.Open))
                 {
@@ -299,6 +358,25 @@ namespace AccountingProcessingSystem_GUI
                 }
 
                 foreach(var d in datas)
+                {
+                    Console.WriteLine(d);
+                }
+                */
+            }
+        }
+
+        public void LoadData(string filedir,ref List<ACCOUNTDATA> datas)
+        {
+            if(System.IO.File.Exists(filedir))
+            {
+                var se = new XmlSerializer(typeof(List<ACCOUNTDATA>));
+                using (var fs = new FileStream(filedir, FileMode.Open))
+                {
+                    datas = (List <ACCOUNTDATA>)se.Deserialize(fs);
+                    if (datas.Count != 0) this.groups = datas[0].Groups;
+                }
+                this.Title = System.IO.Path.GetFileNameWithoutExtension(filedir);
+                foreach (var d in datas)
                 {
                     Console.WriteLine(d);
                 }
@@ -317,11 +395,24 @@ namespace AccountingProcessingSystem_GUI
             fd.Filter = GROUPLISTDATAFILTER;
             if((bool)fd.ShowDialog())
             {
+                this.LoadGroupListData(fd.FileName,ref groups);
+                this.cache.GroupsDataFilePath = fd.FileName;
+                /*
                 var se = new XmlSerializer(typeof(List<GROUP>));
                 using (var fs = new FileStream(fd.FileName,FileMode.Open))
                 {
                     groups = (List<GROUP>)se.Deserialize(fs);
                 }
+                */
+            }
+        }
+
+        public void LoadGroupListData(string filedir,ref List<GROUP> groups)
+        {
+            var se = new XmlSerializer(typeof(List<GROUP>));
+            using (var fs = new FileStream(filedir,FileMode.Open))
+            {
+                groups = (List <GROUP>)se.Deserialize(fs);
             }
         }
 
@@ -435,6 +526,11 @@ namespace AccountingProcessingSystem_GUI
             {
                 this.GenerateCSV(ref this.accounts);
             }
+        }
+
+        private void On_Close(object sender, EventArgs e)
+        {
+            this.GenerateCache(ref this.cache);
         }
     }
 }
