@@ -115,6 +115,18 @@ namespace AccountingProcessingSystem_GUI
         public const string DATAEXT = ".mdata";
         public const string GROUPLISTDATAEXT = ".mgroups";
         public const string GROUPLISTDATAFILTER = "groupsdata files (*.mgroups)|*.mgroups";
+        public const string CSVEXT = ".csv";
+        public const string CSVFILTER = "CSV file (*.csv)|*.csv";
+        public Encoding CSVENCODE = Encoding.UTF8;
+
+        public const string WORD_CSV = ",";
+        public const string NAME_ID = "ID";
+        public const string NAME_DATE = "日付";
+        public const string NAME_GROUP = "項目";
+        public const string NAME_TITLE = "内容";
+        public const string NAME_PAID = "支出";
+        public const string NAME_INCOME = "収益";
+
         public List<ACCOUNTDATA> accounts = new List<ACCOUNTDATA>();
         public List<GROUP> groups = new List<GROUP>();
         public bool IsSelected
@@ -226,6 +238,40 @@ namespace AccountingProcessingSystem_GUI
                     se.Serialize(fs, groupslist);
                 }
                 Console.WriteLine("Saved");
+            }
+        }
+
+        public void GenerateCSV(ref List<ACCOUNTDATA> accounts)
+        {
+            string res = "";
+            res += NAME_ID + WORD_CSV;
+            res += NAME_DATE + WORD_CSV;
+            res += NAME_GROUP + WORD_CSV;
+            res += NAME_TITLE + WORD_CSV;
+            res += NAME_PAID + WORD_CSV;
+            res += NAME_INCOME + Environment.NewLine;
+
+            foreach (var ac in accounts)
+            {
+                res += ac.Id.ToString() + WORD_CSV;
+                res += ac.Date.ToString() + WORD_CSV;
+                res += ac.Group.ToString() + WORD_CSV;
+                res += ac.Title + WORD_CSV;
+                res += ac.Paid.ToString() + WORD_CSV;
+                res += ac.Income.ToString() + Environment.NewLine;
+            }
+
+            var sd = new SaveFileDialog();
+            sd.InitialDirectory = System.IO.Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            sd.DefaultExt = CSVEXT;
+            sd.Filter = CSVFILTER;
+            if((bool)sd.ShowDialog())
+            {
+                var se = new SaveFileDialog();
+                using (var sw = new StreamWriter(sd.FileName,false,CSVENCODE))
+                {
+                    sw.Write(res);
+                }
             }
         }
 
@@ -383,7 +429,7 @@ namespace AccountingProcessingSystem_GUI
             }
             else if(sender as MenuItem == MI_ExportCSV)
             {
-
+                this.GenerateCSV(ref this.accounts);
             }
         }
     }
