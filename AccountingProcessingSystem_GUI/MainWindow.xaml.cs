@@ -185,6 +185,10 @@ namespace AccountingProcessingSystem_GUI
             window.Show();
         }
 
+        /// <summary>
+        /// 会計リストとグループリスト全てをファイルとして保存します。
+        /// </summary>
+        /// <param name="datas"></param>
         public void SaveData(ref List<ACCOUNTDATA> datas)
         {
             var sd = new SaveFileDialog();
@@ -202,6 +206,10 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// 保存された会計データファイルを読み込みます。
+        /// </summary>
+        /// <param name="datas"></param>
         public void LoadData(ref List<ACCOUNTDATA> datas)
         {
             var fd = new OpenFileDialog();
