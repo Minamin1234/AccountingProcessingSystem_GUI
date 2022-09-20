@@ -349,19 +349,6 @@ namespace AccountingProcessingSystem_GUI
             {
                 this.LoadData(fd.FileName, ref datas);
                 this.cache.DataFilePath = fd.FileName;
-                /*
-                var se = new XmlSerializer(typeof(List<ACCOUNTDATA>));
-                using (var fs = new FileStream(fd.FileName, FileMode.Open))
-                {
-                    datas = (List<ACCOUNTDATA>)se.Deserialize(fs);
-                    if (datas.Count != 0) this.groups = datas[0].Groups;
-                }
-
-                foreach(var d in datas)
-                {
-                    Console.WriteLine(d);
-                }
-                */
             }
         }
 
@@ -397,13 +384,6 @@ namespace AccountingProcessingSystem_GUI
             {
                 this.LoadGroupListData(fd.FileName,ref groups);
                 this.cache.GroupsDataFilePath = fd.FileName;
-                /*
-                var se = new XmlSerializer(typeof(List<GROUP>));
-                using (var fs = new FileStream(fd.FileName,FileMode.Open))
-                {
-                    groups = (List<GROUP>)se.Deserialize(fs);
-                }
-                */
             }
         }
 
