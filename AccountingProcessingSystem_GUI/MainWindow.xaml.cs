@@ -208,6 +208,10 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// グループリストをデータとして保存します。
+        /// </summary>
+        /// <param name="groupslist"></param>
         public void SaveGroupListData(ref List<GROUP> groupslist)
         {
             var sd = new SaveFileDialog();
@@ -251,6 +255,10 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// グループリストのデータを読み込みます。
+        /// </summary>
+        /// <param name="groups"></param>
         public void LoadGroupListData(ref List<GROUP> groups)
         {
             var fd = new OpenFileDialog();
@@ -347,6 +355,11 @@ namespace AccountingProcessingSystem_GUI
             Console.WriteLine((this.LV_Datas.SelectedItem as ACCOUNTDATASHOWS).Owner.ToString());
         }
 
+        /// <summary>
+        /// メニュー内のボタン押された時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MenuElements_Clicked(object sender, RoutedEventArgs e)
         {
             if(sender as MenuItem == MI_LoadData)
