@@ -68,6 +68,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\MAccountData.cs" />
+    <Compile Include="Classes\MAccountDataShows.cs" />
+    <Compile Include="Classes\MCache.cs" />
+    <Compile Include="Classes\MGroup.cs" />
     <Compile Include="GroupManager.xaml.cs">
       <DependentUpon>GroupManager.xaml</DependentUpon>
     </Compile>
