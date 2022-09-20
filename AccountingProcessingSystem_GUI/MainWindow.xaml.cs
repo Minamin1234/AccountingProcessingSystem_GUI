@@ -81,6 +81,9 @@ namespace AccountingProcessingSystem_GUI
         }
     }
 
+    /// <summary>
+    /// 前回利用していたデータの場所を示すキャッシュクラス
+    /// </summary>
     public partial class CACHE
     {
         public string DataFilePath = string.Empty;
@@ -153,6 +156,10 @@ namespace AccountingProcessingSystem_GUI
             else this.cache = new CACHE();
         }
 
+        /// <summary>
+        /// キャッシュの配置場所を返します。(アプリケーションと同じ場所に配置されます)
+        /// </summary>
+        /// <returns></returns>
         public string GetCachePath()
         {
             return System.IO.Path.GetDirectoryName(
@@ -161,6 +168,10 @@ namespace AccountingProcessingSystem_GUI
                 + CACHEFILENAME;
         }
 
+        /// <summary>
+        /// キャッシュが存在するかどうかを返します。
+        /// </summary>
+        /// <returns></returns>
         public bool CheckCache()
         {
             if (System.IO.File.Exists(System.IO.Path.GetDirectoryName(
@@ -311,6 +322,10 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// キャッシュを生成します。
+        /// </summary>
+        /// <param name="cache"></param>
         public void GenerateCache(ref CACHE cache)
         {
             var se = new XmlSerializer(typeof(CACHE));
@@ -321,6 +336,10 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// キャッシュからデータファイルをロードします。
+        /// </summary>
+        /// <param name="cache"></param>
         public void LoadCache(ref CACHE cache)
         {
             var se = new XmlSerializer(typeof(CACHE));
@@ -352,6 +371,11 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// 指定した場所のファイルから会計データを読み込みます。
+        /// </summary>
+        /// <param name="filedir"></param>
+        /// <param name="datas"></param>
         public void LoadData(string filedir,ref List<ACCOUNTDATA> datas)
         {
             if(System.IO.File.Exists(filedir))
@@ -387,6 +411,11 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// 指定したファイルの場所からグループリストデータをロードします。
+        /// </summary>
+        /// <param name="filedir"></param>
+        /// <param name="groups"></param>
         public void LoadGroupListData(string filedir,ref List<GROUP> groups)
         {
             var se = new XmlSerializer(typeof(List<GROUP>));
@@ -508,6 +537,11 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// ウィンドウが閉じられる時
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void On_Close(object sender, EventArgs e)
         {
             this.GenerateCache(ref this.cache);
