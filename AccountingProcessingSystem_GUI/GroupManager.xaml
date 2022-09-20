@@ -14,10 +14,10 @@
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Center" Height="29">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <TextBox x:Name="TB_Name" Text="name" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="100"/>
-                <Button x:Name="B_Add" Content="Add" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Add_Clicked"/>
-                <Button x:Name="B_Edit" Content="Edit" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Edit_Clicked"/>
-                <Button x:Name="B_Del" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Del_Clicked"/>
+                <TextBox x:Name="TB_Name" Text="項目名" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="100"/>
+                <Button x:Name="B_Add" Content="追加" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Add_Clicked"/>
+                <Button x:Name="B_Edit" Content="修正" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Edit_Clicked"/>
+                <Button x:Name="B_Del" Content="削除" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5,5,5,5" Width="50" Click="Del_Clicked"/>
             </StackPanel>
         </StackPanel>
         <ListView x:Name="LV_Groups" d:ItemsSource="{d:SampleData ItemCount=5}" Margin="0,65,0,0" Grid.RowSpan="2" MouseDoubleClick="EditElementSelected">

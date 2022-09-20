@@ -32,28 +32,28 @@
         </DockPanel>
         <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Left" Grid.ColumnSpan="2" Margin="114,0,0,0">
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <DatePicker Name="DP_date" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" />
-                <ComboBox x:Name="CB_Group" HorizontalAlignment="Center" VerticalAlignment="Center" Width="100" Margin="5,5,5,5" Background="White" />
-                <TextBox x:Name="TB_Title" Text="title" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" />
+                <DatePicker Name="DP_date" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,5,5,5" Width="100" />
+                <ComboBox x:Name="CB_Group" HorizontalAlignment="Center" VerticalAlignment="Center" Width="75" Margin="5,5,5,5" Background="White" />
+                <TextBox x:Name="TB_Title" Text="内容" VerticalAlignment="Center" Width="100" Margin="5,5,5,5" Background="White" />
                 <TextBox x:Name="TB_Paid" Text="0" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" />
                 <TextBox x:Name="TB_Income" Text="0" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" />
-                <Button x:Name="B_Add" Content="Add" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Add_Clicked"/>
-                <Button x:Name="B_Edit" Content="Edit" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Edit_clicked"/>
-                <Button x:Name="B_Del" Content="Delete" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Del_Clicked"/>
+                <Button x:Name="B_Add" Content="追加" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Add_Clicked"/>
+                <Button x:Name="B_Edit" Content="修正" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Edit_clicked"/>
+                <Button x:Name="B_Del" Content="削除" VerticalAlignment="Center" Width="50" Margin="5,5,5,5" Background="White" Click="Del_Clicked"/>
             </StackPanel>
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Stretch">
-                <Button x:Name="B_GroupManager" Content="GroupManager.." VerticalAlignment="Center" Margin="5,5,5,5" Background="White" HorizontalAlignment="Center" Width="150" Click="GroupManager_Clicked"/>
+                <Button x:Name="B_GroupManager" Content="項目リストの編集.." VerticalAlignment="Center" Margin="5,5,5,5" Background="White" HorizontalAlignment="Center" Width="150" Click="GroupManager_Clicked"/>
             </StackPanel>
         </StackPanel>
         <ListView x:Name="LV_Datas" SelectionChanged="ElementSelected" Grid.ColumnSpan="2" Margin="0,145,0,0" Grid.RowSpan="2">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Width="50" Header="ID" DisplayMemberBinding="{Binding ID}"/>
-                    <GridViewColumn Width="100" Header="Date" DisplayMemberBinding="{Binding Date}"/>
-                    <GridViewColumn Width="50" Header="Group" DisplayMemberBinding="{Binding Group}"/>
-                    <GridViewColumn Width="50" Header="Title" DisplayMemberBinding="{Binding Title}"/>
-                    <GridViewColumn Width="50" Header="Paid" DisplayMemberBinding="{Binding Paid}"/>
-                    <GridViewColumn Width="50" Header="Income" DisplayMemberBinding="{Binding Income}"/>
+                    <GridViewColumn Width="75" Header="日付" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Width="50" Header="項目" DisplayMemberBinding="{Binding Group}"/>
+                    <GridViewColumn Width="100" Header="内容" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Width="50" Header="支出" DisplayMemberBinding="{Binding Paid}"/>
+                    <GridViewColumn Width="50" Header="収益" DisplayMemberBinding="{Binding Income}"/>
                 </GridView>
             </ListView.View>
         </ListView>
