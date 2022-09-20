@@ -113,6 +113,8 @@ namespace AccountingProcessingSystem_GUI
     {
         public const string DATAFILTER = "data files (*.mdata)|*.mdata";
         public const string DATAEXT = ".mdata";
+        public const string GROUPLISTDATAEXT = ".mgroups";
+        public const string GROUPLISTDATAFILTER = "groupsdata files (*.mgroups)|*.mgroups";
         public List<ACCOUNTDATA> accounts = new List<ACCOUNTDATA>();
         public List<GROUP> groups = new List<GROUP>();
         public bool IsSelected
@@ -206,6 +208,23 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        public void SaveGroupListData(ref List<GROUP> groupslist)
+        {
+            var sd = new SaveFileDialog();
+            sd.InitialDirectory = System.IO.Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            sd.DefaultExt = GROUPLISTDATAEXT;
+            sd.Filter = GROUPLISTDATAFILTER;
+            if((bool)sd.ShowDialog())
+            {
+                var se = new XmlSerializer(typeof(List<GROUP>));
+                using (var fs = new FileStream(sd.FileName, FileMode.Create))
+                {
+                    se.Serialize(fs, groupslist);
+                }
+                Console.WriteLine("Saved");
+            }
+        }
+
         /// <summary>
         /// 保存された会計データファイルを読み込みます。
         /// </summary>
@@ -228,6 +247,22 @@ namespace AccountingProcessingSystem_GUI
                 foreach(var d in datas)
                 {
                     Console.WriteLine(d);
+                }
+            }
+        }
+
+        public void LoadGroupListData(ref List<GROUP> groups)
+        {
+            var fd = new OpenFileDialog();
+            fd.InitialDirectory = System.IO.Path.GetDirectoryName(Environment.GetCommandLineArgs()[0]);
+            fd.DefaultExt = GROUPLISTDATAEXT;
+            fd.Filter = GROUPLISTDATAFILTER;
+            if((bool)fd.ShowDialog())
+            {
+                var se = new XmlSerializer(typeof(List<GROUP>));
+                using (var fs = new FileStream(fd.FileName,FileMode.Open))
+                {
+                    groups = (List<GROUP>)se.Deserialize(fs);
                 }
             }
         }
@@ -320,9 +355,18 @@ namespace AccountingProcessingSystem_GUI
                 this.ShowDatas(ref this.accounts);
                 this.ShowGroups(ref this.groups);
             }
+            else if(sender as MenuItem == MI_LoadGroups)
+            {
+                this.LoadGroupListData(ref this.groups);
+                this.ShowGroups(ref this.groups);
+            }
             else if(sender as MenuItem == MI_SaveData)
             {
                 this.SaveData(ref this.accounts);
+            }
+            else if(sender as MenuItem == MI_SaveGroups)
+            {
+                this.SaveGroupListData(ref this.groups);
             }
             else if(sender as MenuItem == MI_ExportCSV)
             {

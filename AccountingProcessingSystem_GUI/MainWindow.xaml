@@ -18,8 +18,14 @@
         <DockPanel VerticalAlignment="Top" Grid.ColumnSpan="2">
             <Menu HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="20" DockPanel.Dock="Top">
                 <MenuItem Header="Data">
-                    <MenuItem x:Name="MI_LoadData" Header="Load Data.." Click="MenuElements_Clicked"/>
-                    <MenuItem x:Name="MI_SaveData" Header="Save Data.." Click="MenuElements_Clicked"/>
+                    <MenuItem Header="Load Data..">
+                        <MenuItem x:Name="MI_LoadData" Header="Data" Click="MenuElements_Clicked" />
+                        <MenuItem x:Name="MI_LoadGroups" Header="Groups" Click="MenuElements_Clicked"/>
+                    </MenuItem>
+                    <MenuItem  Header="Save Data.." >
+                        <MenuItem x:Name="MI_SaveData" Header="Datas" Click="MenuElements_Clicked"/>
+                        <MenuItem x:Name="MI_SaveGroups" Header="Groups" Click="MenuElements_Clicked"/>
+                    </MenuItem>
                     <MenuItem x:Name="MI_ExportCSV" Header="Export CSV" Click="MenuElements_Clicked"/>
                 </MenuItem>
             </Menu>
