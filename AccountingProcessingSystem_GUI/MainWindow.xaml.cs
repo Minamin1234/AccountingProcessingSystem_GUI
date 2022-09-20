@@ -241,6 +241,10 @@ namespace AccountingProcessingSystem_GUI
             }
         }
 
+        /// <summary>
+        /// 会計データをCSV形式で保存します。
+        /// </summary>
+        /// <param name="accounts"></param>
         public void GenerateCSV(ref List<ACCOUNTDATA> accounts)
         {
             string res = "";
