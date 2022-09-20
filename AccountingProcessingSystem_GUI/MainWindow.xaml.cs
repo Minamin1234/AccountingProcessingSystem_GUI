@@ -136,6 +136,7 @@ namespace AccountingProcessingSystem_GUI
             var current = new ACCOUNTDATA();
             current.Id = datas.Count;
             current.Date = DP_date.SelectedDate;
+            current.Groups = this.groups;
             if(CB_Group.SelectedItem == null) current.Group = null;
             else current.Group = CB_Group.SelectedItem as GROUP;
             current.Title = TB_Title.Text;
@@ -213,6 +214,7 @@ namespace AccountingProcessingSystem_GUI
                 using (var fs = new FileStream(fd.FileName, FileMode.Open))
                 {
                     datas = (List<ACCOUNTDATA>)se.Deserialize(fs);
+                    if (datas.Count != 0) this.groups = datas[0].Groups;
                 }
 
                 foreach(var d in datas)
@@ -308,6 +310,7 @@ namespace AccountingProcessingSystem_GUI
             {
                 this.LoadData(ref this.accounts);
                 this.ShowDatas(ref this.accounts);
+                this.ShowGroups(ref this.groups);
             }
             else if(sender as MenuItem == MI_SaveData)
             {
